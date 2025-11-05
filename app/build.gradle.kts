@@ -66,6 +66,10 @@ dependencies {
     //Implementa las librerias de Kotlinx para parcelizar (o utilizar JSON)
     implementation(libs.kotlinx.serialization.json)
 
+    // Librerias necesarias para pedir y gestionar el tema de permisos y el uso de GPS:
+    implementation("com.google.android.gms:play-services-location:21.3.0")
+    implementation("com.google.accompanist:accompanist-permissions:0.53.0-alpha") // Esta dependencia nos permite manejar el tema de permiso relacionado en cualquier cosa
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
