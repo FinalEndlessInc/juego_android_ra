@@ -3,7 +3,7 @@ package mx.uacj.juego_ra.organismos
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import mx.uacj.juego_ra.ui.modelos.InformacionInteractiva
+import mx.uacj.juego_ra.modelos.InformacionInteractiva
 
 @Composable
 fun InformacionInteractivaVista(informacion_interactiva: InformacionInteractiva){

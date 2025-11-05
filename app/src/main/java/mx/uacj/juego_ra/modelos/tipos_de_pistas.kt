@@ -1,4 +1,4 @@
-package mx.uacj.juego_ra.ui.modelos
+package mx.uacj.juego_ra.modelos
 
 enum class TiposDePistas{
     texto,

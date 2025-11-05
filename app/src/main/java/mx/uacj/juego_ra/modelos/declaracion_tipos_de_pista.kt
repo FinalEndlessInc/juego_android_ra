@@ -1,4 +1,4 @@
-package mx.uacj.juego_ra.ui.modelos
+package mx.uacj.juego_ra.modelos
 
 
 public interface PistaGenerica{
@@ -14,7 +14,7 @@ data class Informacion( // Es la pista con solo texto y posiblemente una imagen
 
 data class Boton(
     val texto: String,
-    val direccion: PistaGenerica
+    val direccion: PistaGenerica?
 )
 
 data class InformacionInteractiva(

@@ -3,25 +3,32 @@ package mx.uacj.juego_ra.repositorios_estaticos
 import android.location.Location
 import androidx.collection.emptyObjectList
 import androidx.collection.objectListOf
-import mx.uacj.juego_ra.ui.modelos.Boton
-import mx.uacj.juego_ra.ui.modelos.Informacion
-import mx.uacj.juego_ra.ui.modelos.InformacionInteractiva
-import mx.uacj.juego_ra.ui.modelos.Pista
+import com.google.android.gms.common.util.CollectionUtils.listOf
+import mx.uacj.juego_ra.modelos.Boton
+import mx.uacj.juego_ra.modelos.Informacion
+import mx.uacj.juego_ra.modelos.InformacionInteractiva
+import mx.uacj.juego_ra.modelos.Pista
 
 object RepositorioPruebas{
-    var pistas = listOf(Pista(
+    var pistas = listOf(
+        Pista(
         nombre = "pista 1",
         ubicacion = Location("proveedor").apply{
             latitude = 31.7156044
             longitude = -106.4246012
         },
-        cuerpo = Informacion(
+            distancia_maxima = 15.0f,
+            cuerpo = Informacion(
             texto = "Prueba de texto para comprobar esto pista 1",
             imagen = null
         )),
         Pista(
             nombre = "pista 2",
-            ubicacion = Location("proveedor"),
+            ubicacion = Location("proveedor").apply{
+                latitude = 31.7156044
+                longitude = -106.4246012
+            },
+            distancia_maxima = 15.0f,
             cuerpo = Informacion(
                 texto = "Prueba de texto para comprobar esto pista 2",
                 imagen = null
@@ -29,7 +36,11 @@ object RepositorioPruebas{
         ),
         Pista(
             nombre = "pista 3",
-            ubicacion = Location("proveedor"),
+            ubicacion = Location("proveedor").apply{
+                latitude = 31.7156044
+                longitude = -106.4246012
+            },
+            distancia_maxima = 15.0f,
             cuerpo = Informacion(
                 texto = "Prueba de texto para comprobar esto pista 3",
                 imagen = null
@@ -37,7 +48,11 @@ object RepositorioPruebas{
         ),
         Pista(
             nombre = "pista 4",
-            ubicacion = Location("proveedor"),
+            ubicacion = Location("proveedor").apply{
+                latitude = 31.7156044
+                longitude = -106.4246012
+            },
+            distancia_maxima = 15.0f,
             cuerpo = InformacionInteractiva(
                 texto = "Prueba de pista tipo interactiva",
                 lista_de_botones = listOf(Boton(
