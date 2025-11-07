@@ -5,6 +5,7 @@ import android.location.Location
 data class Pista(
     var nombre: String,
     var ubicacion: Location,
-    var distancia_maxima: Float,
+    var distancia_minima: Float = 15f,
+    var distancia_maxima: Float = 150f,
     var cuerpo: PistaGenerica
 )
