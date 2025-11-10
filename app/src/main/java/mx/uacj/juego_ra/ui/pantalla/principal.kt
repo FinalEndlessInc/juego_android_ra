@@ -14,7 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import mx.uacj.juego_ra.organismos.InformacionInteractivaVista
 import mx.uacj.juego_ra.organismos.InformacionVista
-import mx.uacj.juego_ra.repositorios_estaticos.RepositorioPruebas
+import mx.uacj.juego_ra.repositorios.estaticos.RepositorioPruebas
 import mx.uacj.juego_ra.modelos.Informacion
 import mx.uacj.juego_ra.modelos.InformacionInteractiva
 import mx.uacj.juego_ra.modelos.TiposDePistas
@@ -75,7 +75,7 @@ fun Principal(ubicacion: Location?, modificador: Modifier = Modifier){
                 }
 
             }
-            Text("--------------------")
+
 
         }
 

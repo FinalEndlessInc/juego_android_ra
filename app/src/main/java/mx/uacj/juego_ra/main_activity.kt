@@ -3,13 +3,18 @@ package mx.uacj.juego_ra
 import android.annotation.SuppressLint
 import android.Manifest
 import android.content.pm.PackageManager
+
 import android.location.Location
+
+import android.os.Build
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.util.Pair
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -22,22 +27,40 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.ActivityCompat
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
 import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 import mx.uacj.juego_ra.gestor_permisos.ParaLaSolicitudDePermisos
 import mx.uacj.juego_ra.ui.pantalla.Principal
 import mx.uacj.juego_ra.ui.theme.Juego_raTheme
+import mx.uacj.juego_ra.view_models.GestorUbicacion
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private lateinit var conexion_para_obtener_ubicacion: FusedLocationProviderClient
+    private lateinit var  puente_para_recibir_update_aplicacion: LocationCallback
+
+    private var ubicacion_actual = Location("juego_ra")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        puente_para_recibir_update_aplicacion = object: LocationCallback(){
+            override fun onLocationResult(ubicaciones: LocationResult) {
+                for(ubicacion in ubicaciones.locations){
+                    actualizar_ubicacion(ubicacion)
+                }
+            }
+        }
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
@@ -48,21 +71,15 @@ class MainActivity : ComponentActivity() {
                     var mostrar_resultado_de_los_permisos by remember { mutableStateOf(false) }
                     var texto_permisos_obtenidos by remember { mutableStateOf("Todos los permisos obtenidos") }
 
-                    var ultima_ubicacion_conocida by remember { mutableStateOf<Location?>(null) }
+                    var gestor_ubicacion: GestorUbicacion = hiltViewModel()
 
                     ParaLaSolicitudDePermisos(
                         con_permisos_obtenidos = {
                             mostrar_resultado_de_los_permisos = true;
 
                             obtener_ubicacion_del_usuario(
-                                cuando_obtenga_la_ultima_posicion_correcta = { ubicacion ->
-                                    Log.v("UBICACION", "${ubicacion.first}")
-                                    Log.v("UBICACION", "${ubicacion.second}")
-                                    val ubicacion_actual = Location("SistemaDeUbicacion")
-                                    ubicacion_actual.latitude = ubicacion.first
-                                    ubicacion_actual.longitude = ubicacion.second
-
-                                    ultima_ubicacion_conocida = ubicacion_actual
+                                cuando_obtenga_la_ultima_posicion_correcta = {
+                                    gestor_ubicacion.actualizar_ubicacion_actual(ubicacion_actual)
                                 },
                                 cuando_falle_al_obtener_ubicacion = { error_encontrado ->
                                     texto_de_ubicacion = "Error: ${error_encontrado.localizedMessage}"
@@ -80,12 +97,19 @@ class MainActivity : ComponentActivity() {
 
                     Principal(
                         modificador = Modifier.padding(innerPadding),
-                        ubicacion = ultima_ubicacion_conocida
+                        ubicacion = ubicacion_actual
                     )
                 }
             }
         }
     }
+
+    fun actualizar_ubicacion(ubicacion:Location){
+        Log.wtf("UBICACION", "Ubicacion actual: ${ubicacion}")
+        ubicacion_actual = ubicacion
+    }
+
+
     @SuppressLint("MissingPermission")
     fun obtener_ubicacion_del_usuario(
         cuando_obtenga_la_ultima_posicion_correcta: (Pair<Double, Double>) -> Unit,
@@ -95,6 +119,19 @@ class MainActivity : ComponentActivity() {
         conexion_para_obtener_ubicacion = LocationServices.getFusedLocationProviderClient(this)
 
         if(tenemos_los_permisos_de_ubicacion()){
+            val constructor_del_puente_para_la_ubicacion = LocationRequest
+                .Builder(TimeUnit.SECONDS.toMillis(5))
+                .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+                .build()
+
+            constructor_del_puente_para_la_ubicacion.priority = Priority.PRIORITY_HIGH_ACCURACY
+
+            conexion_para_obtener_ubicacion.requestLocationUpdates(
+                constructor_del_puente_para_la_ubicacion,
+                puente_para_recibir_update_aplicacion,
+                Looper.getMainLooper()
+            )
+
             conexion_para_obtener_ubicacion.getCurrentLocation(
                 Priority.PRIORITY_HIGH_ACCURACY,
                 CancellationTokenSource().token

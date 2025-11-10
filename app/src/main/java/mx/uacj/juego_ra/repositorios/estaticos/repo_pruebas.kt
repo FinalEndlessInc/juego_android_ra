@@ -1,8 +1,6 @@
-package mx.uacj.juego_ra.repositorios_estaticos
+package mx.uacj.juego_ra.repositorios.estaticos
 
 import android.location.Location
-import androidx.collection.emptyObjectList
-import androidx.collection.objectListOf
 import com.google.android.gms.common.util.CollectionUtils.listOf
 import mx.uacj.juego_ra.modelos.Boton
 import mx.uacj.juego_ra.modelos.Informacion
