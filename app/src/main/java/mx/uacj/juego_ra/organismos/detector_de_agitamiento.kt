@@ -15,11 +15,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import kotlinx.serialization.Contextual
+import java.lang.Math.abs
 
 @Composable
-fun DetectorAgitamiento(modificador: Modifier = Modifier){
+fun DetectorAgitamiento(modificador: Modifier = Modifier, meta_de_agitadas: Int, al_llegar_a_la_meta: () -> Unit){
     val contexto = LocalContext.current
     var contador_agitadas by remember { mutableStateOf(0) }
+    val sensibilidad = 160
 
     DisposableEffect(Unit) {
         val gestor_sensor = contexto.getSystemService(Context.SENSOR_SERVICE as SensorManager)
@@ -32,10 +35,14 @@ fun DetectorAgitamiento(modificador: Modifier = Modifier){
                     val y = evento.values[1]
                     val z = evento.values[2]
 
-                    val sumatoria = abs(x) + abs(y) + abs(z)
-                    if(sumatoria > 80){
-                        Log.v("SENSOR VELOCIDAD", "La velocidad fue de ${sumatoria}")
+                    val velocidad_movimiento = abs(x) + abs(y) + abs(z)
+                    if(velocidad_movimiento > sensibilidad){
+                        Log.v("SENSOR VELOCIDAD", "La velocidad fue de ${velocidad_movimiento}")
                         contador_agitadas = contador_agitadas + 1
+
+                        if(contador_agitadas >= meta_de_agitadas){
+                            al_llegar_a_la_meta()
+                        }
                     }
                 }
             }
@@ -50,6 +57,6 @@ fun DetectorAgitamiento(modificador: Modifier = Modifier){
     }
 
     Column {
-        Text("Cantidad de agitadas ${contador_agitadas}")
+        Text("Cantidad de agitadas ${contador_agitadas} y la meta es ${meta_de_agitadas}")
     }
 }

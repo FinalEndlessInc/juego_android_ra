@@ -39,6 +39,7 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import mx.uacj.juego_ra.gestor_permisos.ParaLaSolicitudDePermisos
+import mx.uacj.juego_ra.ui.controladores.NavegadorPrincipal
 import mx.uacj.juego_ra.ui.pantalla.Principal
 import mx.uacj.juego_ra.ui.theme.Juego_raTheme
 import mx.uacj.juego_ra.view_models.GestorUbicacion
@@ -53,13 +54,7 @@ class MainActivity : ComponentActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        puente_para_recibir_update_aplicacion = object: LocationCallback(){
-            override fun onLocationResult(ubicaciones: LocationResult) {
-                for(ubicacion in ubicaciones.locations){
-                    actualizar_ubicacion(ubicacion)
-                }
-            }
-        }
+
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -78,14 +73,12 @@ class MainActivity : ComponentActivity() {
                             mostrar_resultado_de_los_permisos = true;
 
                             obtener_ubicacion_del_usuario(
-                                cuando_obtenga_la_ultima_posicion_correcta = {
-                                    gestor_ubicacion.actualizar_ubicacion_actual(ubicacion_actual)
-                                },
-                                cuando_falle_al_obtener_ubicacion = { error_encontrado ->
-                                    texto_de_ubicacion = "Error: ${error_encontrado.localizedMessage}"
-                                },
-                                cuando_la_ultima_posicion_sea_nula = {
-                                    texto_de_ubicacion = "Error: la ubicacion es nula por alguna razon"
+                                cuando_obtenga_la_ultima_posicion_correcta = { ubicacion_nueva ->
+                                    Log.w(
+                                        "Ubicacion nueva",
+                                        "la ubicacion nueva es ${ubicacion_nueva}"
+                                    )
+                                    gestor_ubicacion.actualizar_ubicacion_actual(ubicacion_nueva)
                                 }
                             )
                         },
@@ -95,10 +88,7 @@ class MainActivity : ComponentActivity() {
                         }
                     ) { }
 
-                    Principal(
-                        modificador = Modifier.padding(innerPadding),
-                        ubicacion = ubicacion_actual
-                    )
+                    NavegadorPrincipal(modificador = Modifier.padding(innerPadding))
                 }
             }
         }
@@ -112,11 +102,17 @@ class MainActivity : ComponentActivity() {
 
     @SuppressLint("MissingPermission")
     fun obtener_ubicacion_del_usuario(
-        cuando_obtenga_la_ultima_posicion_correcta: (Pair<Double, Double>) -> Unit,
-        cuando_falle_al_obtener_ubicacion: (Exception) -> Unit,
-        cuando_la_ultima_posicion_sea_nula: () -> Unit
+        cuando_obtenga_la_ultima_posicion_correcta: (Location) -> Unit,
     ){
         conexion_para_obtener_ubicacion = LocationServices.getFusedLocationProviderClient(this)
+
+        puente_para_recibir_update_aplicacion = object: LocationCallback(){
+            override fun onLocationResult(ubicaciones: LocationResult) {
+                for(ubicacion in ubicaciones.locations){
+                    actualizar_ubicacion(ubicacion)
+                }
+            }
+        }
 
         if(tenemos_los_permisos_de_ubicacion()){
             val constructor_del_puente_para_la_ubicacion = LocationRequest
@@ -132,7 +128,7 @@ class MainActivity : ComponentActivity() {
                 Looper.getMainLooper()
             )
 
-            conexion_para_obtener_ubicacion.getCurrentLocation(
+            /*conexion_para_obtener_ubicacion.getCurrentLocation(
                 Priority.PRIORITY_HIGH_ACCURACY,
                 CancellationTokenSource().token
             )
@@ -146,7 +142,7 @@ class MainActivity : ComponentActivity() {
                 }
                 .addOnFailureListener{ error ->
                     cuando_falle_al_obtener_ubicacion(error)
-                }
+                }*/
         }
     }
 
