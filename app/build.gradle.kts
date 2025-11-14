@@ -71,11 +71,16 @@ dependencies {
     implementation("com.google.accompanist:accompanist-permissions:0.35.0-alpha") // Esta dependencia nos permite manejar el tema de permiso relacionado en cualquier cosa
 
     // Librerias Cde AndroidCameraX
+    // The following line is optional, as the core library is included indirectly by camera-camera2
     implementation(libs.androidx.camera.core)
     implementation(libs.androidx.camera.camera2)
+    // If you want to additionally use the CameraX Lifecycle library
     implementation(libs.androidx.camera.lifecycle)
+    // If you want to additionally use the CameraX VideoCapture library
     implementation(libs.androidx.camera.video)
+    // If you want to additionally use the CameraX View class
     implementation(libs.androidx.camera.view)
+    // If you want to additionally add CameraX ML Kit Vision Integration
 
 
     implementation(libs.androidx.core.ktx)

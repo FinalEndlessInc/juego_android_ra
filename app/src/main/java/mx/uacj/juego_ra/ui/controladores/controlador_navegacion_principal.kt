@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import mx.uacj.juego_ra.ui.pantalla.Principal
+import mx.uacj.juego_ra.ui.pantalla.modificador_radar
 
 @Composable
 fun NavegadorPrincipal(modificador: Modifier = Modifier){
@@ -14,6 +15,10 @@ fun NavegadorPrincipal(modificador: Modifier = Modifier){
     NavHost(controlador_de_navegacion, startDestination = "OpcionNavegacionPantallaPrincipal"){
         composable("OpcionNavegacionPantallaPrincipal") {
             Principal(modificador)
+        }
+
+        composable("SelectorPantallaPista") {
+            SeleccionarPantallaPista(modificador)
         }
     }
 }

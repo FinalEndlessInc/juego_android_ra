@@ -22,7 +22,8 @@ fun ParaLaSolicitudDePermisos(
     val estado_de_los_permisos = rememberMultiplePermissionsState(
         listOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.CAMERA
         )
 
     ){ lista_permisos ->
