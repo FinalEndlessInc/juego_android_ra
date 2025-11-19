@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
 class ServicioCamara: ViewModel(){
-    private var _surface_vista_camara = MutableStateFlow<SurfaceRequest>(null)
+    private var _surface_vista_camara = MutableStateFlow<SurfaceRequest?>(null)
     var surface_vista_camara: StateFlow<SurfaceRequest?> = _surface_vista_camara
 
     private val previsualizacion = Preview.Builder().build().apply {
@@ -31,9 +31,7 @@ class ServicioCamara: ViewModel(){
             dueño_ciclo_de_vida, CameraSelector.DEFAULT_BACK_CAMERA, previsualizacion
         )
 
-        try{
-            awaitCancellation()
-        }finally {
+        try{ awaitCancellation() } finally {
             proceso_camara_proveedor.unbindAll()
         }
     }

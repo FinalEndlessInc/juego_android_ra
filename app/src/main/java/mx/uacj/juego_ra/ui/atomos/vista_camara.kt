@@ -1,5 +1,6 @@
 package mx.uacj.juego_ra.ui.atomos
 
+import androidx.camera.compose.CameraXViewfinder
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -23,8 +24,8 @@ fun VistaCamara(
         servicio_de_camara.conectar_con_camara(contexto.applicationContext, dueño_del_ciclo_de_vida)
     }
 
-    superficie_del_dibujo.let{ peticion ->
-        CameraXViewFinder(
+    superficie_del_dibujo?.let{ peticion ->
+        CameraXViewfinder(
             surfaceRequest = peticion,
             modificador
         )

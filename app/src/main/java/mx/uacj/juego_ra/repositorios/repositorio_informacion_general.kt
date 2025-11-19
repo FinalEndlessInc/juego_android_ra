@@ -24,11 +24,12 @@ object repositorio_informacion_general_singleton{
 
 class InstanciaRepositorioInformacionGeneral(
     override val pistas_identificadas: MutableState<List<Pista>> = mutableStateOf(emptyList()),
-    override val pista_seleccionada
+    override val pista_seleccionada: MutableState<Pista?> = mutableStateOf(null)
 ): RepositorioInformacionGeneral{
 
 }
 
 interface RepositorioInformacionGeneral {
     val pistas_identificadas: MutableState<List<Pista>>
+    val pista_seleccionada: MutableState<Pista?>
 }

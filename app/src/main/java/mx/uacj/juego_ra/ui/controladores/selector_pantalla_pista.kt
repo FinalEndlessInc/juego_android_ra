@@ -1,29 +1,32 @@
 package mx.uacj.juego_ra.ui.controladores
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import mx.uacj.juego_ra.modelos.Informacion
 import mx.uacj.juego_ra.modelos.InformacionInteractiva
 import mx.uacj.juego_ra.modelos.TiposDePistas
 import mx.uacj.juego_ra.organismos.InformacionInteractivaVista
 import mx.uacj.juego_ra.organismos.InformacionVista
+import mx.uacj.juego_ra.view_models.ControladorGeneral
 
 @Composable
-fun seleccionarPantallaPista(modificador: Modifier = Modifier){
-    if (mostrar_pista_cercana){
-        when(pista.cuerpo.tipo){
+fun SeleccionarPantallaPista(modificador: Modifier = Modifier, controlador_general: ControladorGeneral = hiltViewModel()){
+    val pista_actual by controlador_general.pista_actual
+
+        when(pista_actual!!.cuerpo.tipo){
             TiposDePistas.texto ->{
-                InformacionVista(pista.cuerpo as Informacion)
+                InformacionVista(pista_actual!!.cuerpo as Informacion)
             }
             TiposDePistas.interactiva ->{
-                InformacionInteractivaVista(pista.cuerpo as InformacionInteractiva)
+                InformacionInteractivaVista(pista_actual!!.cuerpo as InformacionInteractiva)
             }
             TiposDePistas.camara ->{
-
+                TODO()
             }
             TiposDePistas.agitar_telefono -> {
-
+                TODO()
             }
         }
-    }
 }

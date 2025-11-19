@@ -14,7 +14,7 @@ fun NavegadorPrincipal(modificador: Modifier = Modifier){
 
     NavHost(controlador_de_navegacion, startDestination = "OpcionNavegacionPantallaPrincipal"){
         composable("OpcionNavegacionPantallaPrincipal") {
-            Principal(modificador)
+            Principal(controlador_de_navegacion, modificador)
         }
 
         composable("SelectorPantallaPista") {

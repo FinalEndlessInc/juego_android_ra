@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import mx.uacj.juego_ra.organismos.InformacionInteractivaVista
 import mx.uacj.juego_ra.organismos.InformacionVista
 import mx.uacj.juego_ra.repositorios.estaticos.RepositorioPruebas
@@ -20,10 +21,16 @@ import mx.uacj.juego_ra.modelos.Informacion
 import mx.uacj.juego_ra.modelos.InformacionInteractiva
 import mx.uacj.juego_ra.modelos.TiposDePistas
 import mx.uacj.juego_ra.organismos.DetectorAgitamiento
+import mx.uacj.juego_ra.view_models.ControladorGeneral
 import mx.uacj.juego_ra.view_models.GestorUbicacion
 
 @Composable
-fun Principal( modificador: Modifier = Modifier, gestor_ubicacion: GestorUbicacion = hiltViewModel()){
+fun Principal(
+    navegador: NavHostController,
+    modificador: Modifier = Modifier,
+    gestor_ubicacion: GestorUbicacion = hiltViewModel(),
+    controlador_general: ControladorGeneral = hiltViewModel()
+){
 
     var mostrar_pantalla_generica by remember { mutableStateOf(true) }
     var mostrar_pista_cercana by remember { mutableStateOf(false) }
@@ -32,7 +39,7 @@ fun Principal( modificador: Modifier = Modifier, gestor_ubicacion: GestorUbicaci
 
     var ubicacion = gestor_ubicacion.ubicacion_actual
 
-    Column {
+    Column(modificador) {
         DetectorAgitamiento(meta_de_agitadas = 20, al_llegar_a_la_meta = {
             mostrar_informacion_relacionada_con_las_agitadas = true
         })
@@ -68,6 +75,15 @@ fun Principal( modificador: Modifier = Modifier, gestor_ubicacion: GestorUbicaci
                     Row (modifier = Modifier.fillMaxWidth().clickable {
                         mostrar_pista_cercana = true
                     }){
+                        Text("Capturar pista cercana")
+                    }
+                }
+
+                else if(distancia_a_la_pista < pista.distancia_minima){
+                    Row(modifier = Modifier.fillMaxWidth().clickable {
+                        navegador.navigate("SelectorPantallaPista")
+                        controlador_general.seleccionar_pista(pista)
+                    }) {
                         Text("Capturar pista cercana")
                     }
                 }

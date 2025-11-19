@@ -19,13 +19,16 @@ import kotlinx.serialization.Contextual
 import java.lang.Math.abs
 
 @Composable
-fun DetectorAgitamiento(modificador: Modifier = Modifier, meta_de_agitadas: Int, al_llegar_a_la_meta: () -> Unit){
+fun DetectorAgitamiento(modificador: Modifier = Modifier,
+                        meta_de_agitadas: Int,
+                        al_llegar_a_la_meta: () -> Unit
+){
     val contexto = LocalContext.current
     var contador_agitadas by remember { mutableStateOf(0) }
     val sensibilidad = 160
 
     DisposableEffect(Unit) {
-        val gestor_sensor = contexto.getSystemService(Context.SENSOR_SERVICE as SensorManager)
+        val gestor_sensor = contexto.getSystemService(Context.SENSOR_SERVICE) as SensorManager
         val sensor_Agitamiento = gestor_sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
         val escucha = object: android.hardware.SensorEventListener{

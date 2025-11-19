@@ -49,6 +49,7 @@ import mx.uacj.juego_ra.ui.controladores.NavegadorPrincipal
 import mx.uacj.juego_ra.ui.pantalla.Principal
 import mx.uacj.juego_ra.ui.theme.Juego_raTheme
 import mx.uacj.juego_ra.view_models.GestorUbicacion
+import mx.uacj.juego_ra.view_models.servicios.ServicioCamara
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
@@ -57,7 +58,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var  puente_para_recibir_update_aplicacion: LocationCallback
 
     private var ubicacion_actual = Location("juego_ra")
-
+    private var servicio_de_camara = ServicioCamara()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
