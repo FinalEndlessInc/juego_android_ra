@@ -1,7 +1,9 @@
 package mx.uacj.juego_ra.ui.pantalla
 
 import android.location.Location
+import android.util.Log
 import androidx.compose.foundation.clickable
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,10 +29,14 @@ import mx.uacj.juego_ra.ui.controladores.OpcionNavegacionPantallaPistaCamara
 import mx.uacj.juego_ra.ui.controladores.OpcionNavegacionPantallaPistaInformacion
 import mx.uacj.juego_ra.ui.controladores.OpcionNavegacionPantallaPistaInteractuable
 import mx.uacj.juego_ra.ui.moleculas.BotonInteraccion
-import mx.uacj.juego_ra.ui.moleculas.sePushoBoton
 import mx.uacj.juego_ra.ui.moleculas.texto_para_boton
 import mx.uacj.juego_ra.view_models.ControladorGeneral
 import mx.uacj.juego_ra.view_models.GestorUbicacion
+
+@Composable
+fun llamenAlBoton(textoParaBoton: texto_para_boton){
+    BotonInteraccion(textoParaBoton)
+}
 
 @Composable
 fun Principal(
@@ -89,11 +95,14 @@ fun Principal(
                 }*/
 
                 else if(distancia_a_la_pista < pista.distancia_minima){
-                    Row(modifier = Modifier.fillMaxWidth().clickable {
-                        navegador.navigate("SelectorPantallaPista")
-                        controlador_general.seleccionar_pista(pista)
-                    }) {
-                        BotonInteraccion(texto_para_boton.Buscar)
+                    Row(modifier = Modifier
+                            //.fillMaxWidth().clickable {
+                        //navegador.navigate("SelectorPantallaPista")
+                        // controlador_general.seleccionar_pista(pista)
+                   // }
+                    ) {
+                        Text(".....", modifier = Modifier.clickable { Log.v("Eureka", "Eureka") })
+                        //llamenAlBoton(texto_para_boton.Buscar)
                     }
                 }
 

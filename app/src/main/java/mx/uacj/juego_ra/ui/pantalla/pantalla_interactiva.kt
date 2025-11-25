@@ -40,9 +40,9 @@ fun InformacionInteractivaPista(navegador: NavHostController, informacion_intera
             }
             Row(Modifier.clickable {
                 if (respuesta_seleccionada){
-                    navegador.navigate(PantallaInteraccionCorrecta)
+                    navegador.navigate("PantallaInteraccionCorrecta")
                 }else{
-                    navegador.navigate(PantallaInteraccionIncorrecta)
+                    navegador.navigate("PantallaInteraccionIncorrecta")
                 }
             }){
                 BotonInteraccion(texto_para_boton.Seleccionar)

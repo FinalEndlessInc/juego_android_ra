@@ -13,11 +13,17 @@ object RepositorioPruebas{
         Pista(
         nombre = "pista 1", //Edificio A
         ubicacion = Location("proveedor").apply{
+            // EDIFICIO A
            // latitude = 31.742102
            // longitude = -106.433054
 
-            latitude = 31.715930
-            longitude= -106.427743
+            // La casa
+            //latitude = 31.715930
+            //longitude= -106.427743
+
+            //Edificio V
+            latitude = 31.742100
+            longitude = -106.432415
         },
             interaccion = Personaje[0],
             cuerpo = InformacionInteractiva(

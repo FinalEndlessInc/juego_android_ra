@@ -36,15 +36,11 @@ enum class texto_para_boton{
 
 }
 
-fun sePushoBoton(): Boolean{
-    return true;
-}
-
 @Composable
 fun BotonInteraccion(estado: texto_para_boton){
 
-    var boton_presionado = false
-    var texto_del_boton by remember { mutableStateOf(texto_para_boton.Buscar) }
+    //var boton_presionado = false
+    var texto_del_boton by remember { mutableStateOf(estado) }
 
     Column (Modifier
         .width(175.dp)
@@ -56,7 +52,7 @@ fun BotonInteraccion(estado: texto_para_boton){
         ){
 
         Text(
-            text = "${estado}",
+            text = "${texto_del_boton}",
             Modifier.fillMaxWidth(),
             fontSize = 30.sp,
             fontFamily = fontLato,

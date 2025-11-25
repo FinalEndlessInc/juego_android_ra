@@ -60,9 +60,9 @@ fun mostrar_interaccion(modificador : Modifier = Modifier, personaje : Interacci
                 Row {
                     for( i in personaje.dialogos){
                         mostrar_dialogo(personaje, q)
-                        if(sePushoBoton()) {
+                        /*if(sePushoBoton()) {
                             q++
-                        }
+                        }*/
                     }
 
                 }
