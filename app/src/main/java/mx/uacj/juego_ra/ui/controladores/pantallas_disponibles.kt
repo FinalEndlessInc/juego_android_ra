@@ -9,6 +9,12 @@ object OpcionNavegacionPantallaPrincipal
 object OpcionNavegacionPantallaPistaInformacion
 
 @Serializable
+object PantallaInteraccionIncorrecta
+
+@Serializable
+object PantallaInteraccionCorrecta
+
+@Serializable
 object OpcionNavegacionPantallaPistaInteractuable
 
 @Serializable

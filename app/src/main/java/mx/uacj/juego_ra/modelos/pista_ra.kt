@@ -7,5 +7,6 @@ data class Pista(
     var ubicacion: Location,
     var distancia_minima: Float = 15f,
     var distancia_maxima: Float = 150f,
-    var cuerpo: PistaGenerica
+    var cuerpo: PistaGenerica,
+    var interaccion: Interaccion
 )

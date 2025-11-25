@@ -52,6 +52,9 @@ dependencies {
     implementation(libs.hilt.viewmodel)
     ksp(libs.hilt.android.compilador)
 
+    // Agregar fuentes desde Google
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.9.3")
+
     val androidxhiltCompiler = "1.3.0" // Cambioar a 1.2.0
     implementation("androidx.hilt:hilt-work:${androidxhiltCompiler}")
     ksp("androidx.hilt:hilt-compiler:${androidxhiltCompiler}")

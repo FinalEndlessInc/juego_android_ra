@@ -14,9 +14,9 @@ class GestorUbicacion @Inject constructor (
     private val repositorio_ubicacion : RepositorioUbicacion
 ): ViewModel(){
     private val _ubicacion_actual: MutableState<Location> = mutableStateOf(Location("juego_ra"))
-    val ubicacion_actual: State<Location> = _ubicacion_actual
+    val ubicacion_actual: State<Location> = repositorio_ubicacion.ubicacion
 
     fun actualizar_ubicacion_actual(ubicacion_nueva: Location){
-        _ubicacion_actual.value = ubicacion_nueva
+        repositorio_ubicacion.ubicacion.value = ubicacion_nueva
     }
 }

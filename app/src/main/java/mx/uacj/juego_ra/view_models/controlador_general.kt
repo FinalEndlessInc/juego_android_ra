@@ -1,10 +1,13 @@
 package mx.uacj.juego_ra.view_models
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import mx.uacj.juego_ra.modelos.Pista
 import mx.uacj.juego_ra.repositorios.RepositorioInformacionGeneral
+import mx.uacj.juego_ra.repositorios.estaticos.RepositorioPruebas.pistas
+import mx.uacj.juego_ra.ui.pantalla.PistaActual
 import javax.inject.Inject
 
 @HiltViewModel
@@ -13,8 +16,19 @@ class ControladorGeneral @Inject constructor(
 ) : ViewModel(){
     var pista_actual: State<Pista?> = informacion_general.pista_seleccionada
 
+
     fun seleccionar_pista(pista: Pista){
         informacion_general.pista_seleccionada.value = pista
+
+    }
+
+    fun seleccionar_pista(pista_id: String){
+        for(pista in pistas){
+            if(pista.nombre == pista_id){
+                informacion_general.pista_seleccionada.value = pista
+                break
+            }
+        }
     }
 
     fun el_usuario_ha_encontrado_la_pista(pista: Pista){

@@ -14,7 +14,8 @@ data class Informacion( // Es la pista con solo texto y posiblemente una imagen
 
 data class Boton(
     val texto: String,
-    val direccion: PistaGenerica?
+    val respuesta: Boolean,
+    val direccion: String
 )
 
 data class InformacionInteractiva(

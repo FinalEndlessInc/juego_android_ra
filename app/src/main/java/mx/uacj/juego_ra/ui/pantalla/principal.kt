@@ -14,13 +14,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import mx.uacj.juego_ra.organismos.InformacionInteractivaVista
 import mx.uacj.juego_ra.organismos.InformacionVista
 import mx.uacj.juego_ra.repositorios.estaticos.RepositorioPruebas
 import mx.uacj.juego_ra.modelos.Informacion
 import mx.uacj.juego_ra.modelos.InformacionInteractiva
 import mx.uacj.juego_ra.modelos.TiposDePistas
 import mx.uacj.juego_ra.organismos.DetectorAgitamiento
+import mx.uacj.juego_ra.repositorios.RepositorioInformacionGeneral
+import mx.uacj.juego_ra.ui.controladores.NavegadorPrincipal
+import mx.uacj.juego_ra.ui.controladores.OpcionNavegacionPantallaPistaAgitable
+import mx.uacj.juego_ra.ui.controladores.OpcionNavegacionPantallaPistaCamara
+import mx.uacj.juego_ra.ui.controladores.OpcionNavegacionPantallaPistaInformacion
+import mx.uacj.juego_ra.ui.controladores.OpcionNavegacionPantallaPistaInteractuable
+import mx.uacj.juego_ra.ui.moleculas.BotonInteraccion
+import mx.uacj.juego_ra.ui.moleculas.sePushoBoton
+import mx.uacj.juego_ra.ui.moleculas.texto_para_boton
 import mx.uacj.juego_ra.view_models.ControladorGeneral
 import mx.uacj.juego_ra.view_models.GestorUbicacion
 
@@ -35,18 +43,19 @@ fun Principal(
     var mostrar_pantalla_generica by remember { mutableStateOf(true) }
     var mostrar_pista_cercana by remember { mutableStateOf(false) }
 
-    var mostrar_informacion_relacionada_con_las_agitadas by remember { mutableStateOf(false) }
+    //var mostrar_informacion_relacionada_con_las_agitadas by remember { mutableStateOf(false) }
 
     var ubicacion = gestor_ubicacion.ubicacion_actual
 
     Column(modificador) {
-        DetectorAgitamiento(meta_de_agitadas = 20, al_llegar_a_la_meta = {
+        /*DetectorAgitamiento(meta_de_agitadas = 20, al_llegar_a_la_meta = {
             mostrar_informacion_relacionada_con_las_agitadas = true
         })
         if(mostrar_informacion_relacionada_con_las_agitadas){
             Text("Ya wey, ya")
-        }
+        }*/
 
+        Text("Ubicacion actual: ${ubicacion.value}")
         for(pista in RepositorioPruebas.pistas){
 
             if (ubicacion.value == null){
@@ -71,20 +80,20 @@ fun Principal(
                 else if(nivel_de_distancia > 25){
                     Text("Muy cercas. ya merito")
                 }
-                else if (nivel_de_distancia < 20 && !mostrar_pista_cercana){
+                /*else if (nivel_de_distancia < 20 && !mostrar_pista_cercana){
                     Row (modifier = Modifier.fillMaxWidth().clickable {
                         mostrar_pista_cercana = true
                     }){
                         Text("Capturar pista cercana")
                     }
-                }
+                }*/
 
                 else if(distancia_a_la_pista < pista.distancia_minima){
                     Row(modifier = Modifier.fillMaxWidth().clickable {
                         navegador.navigate("SelectorPantallaPista")
                         controlador_general.seleccionar_pista(pista)
                     }) {
-                        Text("Capturar pista cercana")
+                        BotonInteraccion(texto_para_boton.Buscar)
                     }
                 }
 
