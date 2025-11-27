@@ -17,13 +17,17 @@ object RepositorioPruebas{
            // latitude = 31.742102
            // longitude = -106.433054
 
+            // Cerca del W
+            latitude = 31.743153
+            longitude = -106.432236
+
             // La casa
             //latitude = 31.715930
             //longitude= -106.427743
 
             //Edificio V
-            latitude = 31.742100
-            longitude = -106.432415
+            //latitude = 31.742100
+            //longitude = -106.432415
         },
             interaccion = Personaje[0],
             cuerpo = InformacionInteractiva(

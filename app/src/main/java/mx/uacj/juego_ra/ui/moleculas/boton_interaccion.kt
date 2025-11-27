@@ -32,7 +32,8 @@ import mx.uacj.juego_ra.modelos.Pista
 enum class texto_para_boton{
     Buscar,
     Siguiente,
-    Seleccionar
+    Seleccionar,
+    Capturar
 
 }
 
