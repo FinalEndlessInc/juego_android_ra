@@ -95,7 +95,7 @@ fun Principal(
                                 var nivel_de_distancia = (distancia_a_la_pista * 100) / (pista.distancia_maxima - pista.distancia_minima)
 
                                 Text("La pista es ${pista.nombre}", color = Color.Green, textAlign = TextAlign.Center)
-                                //Text("El nivel de la distancia a la pista es ${nivel_de_distancia} metros", color = Color.Green, textAlign = TextAlign.Center)
+                                Text("El nivel de la distancia a la pista es ${nivel_de_distancia} metros", color = Color.Green, textAlign = TextAlign.Center)
 
                                 if(nivel_de_distancia > 75){
                                     Text("Estas frio todavia", color = Color.Green)

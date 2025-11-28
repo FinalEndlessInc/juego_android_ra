@@ -12,15 +12,15 @@ object Interacciones{
             dialogos = listOf(
                 Dialogo(
                     identificador = 1,
-                    dialogo_texto = "¡!"
+                    dialogo_texto = "Veo que te anda yendo mal este semestre..."
                 ),
                 Dialogo(
                     identificador = 2,
-                    dialogo_texto = "Estoy haciendo pruebas para ver si funciona la caja de dialogos"
+                    dialogo_texto = "Toma, te presto este rada para que busques las esferas del dragon"
                 ),
                 Dialogo(
                     identificador = 3,
-                    dialogo_texto = "Y si todo sale bien, se podria ver esto cada que se presione el boton"
+                    dialogo_texto = "Con la ayuda de Shenlong, de seguro prodas sobrevivir lo que falta"
                 )
             )
         ),

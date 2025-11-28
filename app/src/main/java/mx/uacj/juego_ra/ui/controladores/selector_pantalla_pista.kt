@@ -11,6 +11,7 @@ import mx.uacj.juego_ra.modelos.TiposDePistas
 import mx.uacj.juego_ra.organismos.InformacionVista
 import mx.uacj.juego_ra.ui.moleculas.mostrar_interaccion
 import mx.uacj.juego_ra.ui.pantalla.InformacionInteractivaPista
+import mx.uacj.juego_ra.ui.pantalla.PantallaAgitable
 import mx.uacj.juego_ra.ui.pantalla.PantallaCamara
 import mx.uacj.juego_ra.view_models.ControladorGeneral
 
@@ -30,7 +31,7 @@ fun SeleccionarPantallaPista(navegador: NavHostController, modificador: Modifier
                 PantallaCamara()
             }
             TiposDePistas.agitar_telefono -> {
-                TODO()
+                PantallaAgitable()
             }
         }
 }
